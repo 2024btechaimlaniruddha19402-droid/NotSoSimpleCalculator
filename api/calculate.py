@@ -1,5 +1,5 @@
 import json
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlparse
 
 
 def evaluate_expression(expression: str) -> str:
@@ -100,8 +100,14 @@ def apply_operator(values: list, op: str) -> None:
 
 def handler(request):
     query = request.get('query', '')
-    data = parse_qs(query)
-    expression = data.get('expression', [''])[0]
+    if not query:
+        url = request.get('url', '')
+        if url:
+            query = parse_qs(urlparse(url).query)
+    if isinstance(query, dict):
+        expression = query.get('expression', [''])[0]
+    else:
+        expression = parse_qs(query).get('expression', [''])[0]
 
     try:
         result = evaluate_expression(expression)
