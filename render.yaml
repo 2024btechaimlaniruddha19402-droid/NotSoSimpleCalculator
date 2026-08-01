@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: NotSoSimpleCalculator
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    buildCommand: ''
+    startCommand: ''
+    branch: main
+    envVars: []
