@@ -9,6 +9,11 @@
       "src": "index.html",
       "use": "@vercel/static"
     }
+    ,
+    {
+      "src": "calculator.html",
+      "use": "@vercel/static"
+    }
   ],
   "routes": [
     {
