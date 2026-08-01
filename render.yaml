@@ -4,6 +4,7 @@ services:
     env: docker
     plan: free
     dockerfilePath: Dockerfile
+    rootDirectory: .
     buildCommand: ''
     startCommand: ''
     branch: main
