@@ -1,8 +1,0 @@
-target
-.git
-.gitignore
-.vscode
-README.md
-calculator.html
-run_calculator.py
-render.yaml
