@@ -116,3 +116,7 @@ def handler(request):
             'headers': {'Content-Type': 'application/json'},
             'body': json.dumps({'error': str(e)})
         }
+
+
+app = handler
+application = handler
