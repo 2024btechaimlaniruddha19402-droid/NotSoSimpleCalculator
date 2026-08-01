@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/*.py",
+      "src": "api/**/*.py",
       "use": "@vercel/python"
     },
     {
@@ -12,8 +12,16 @@
   ],
   "routes": [
     {
-      "src": "/api/calculate",
-      "dest": "/api/calculate.py"
+      "src": "/api/(.*)",
+      "dest": "/api/$1.py"
+    },
+    {
+      "src": "^/calculator$",
+      "dest": "/calculator.html"
+    },
+    {
+      "src": "^/calculator/(.*)$",
+      "dest": "/calculator.html"
     },
     {
       "src": "/(.*)",
