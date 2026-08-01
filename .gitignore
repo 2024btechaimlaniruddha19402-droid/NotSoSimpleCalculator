@@ -11,3 +11,7 @@
 # OS files
 .DS_Store
 Thumbs.db
+
+# Vercel and Python
+__pycache__/
+*.pyc
