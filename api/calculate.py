@@ -1,5 +1,5 @@
 import json
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs
 
 
 def evaluate_expression(expression: str) -> str:
@@ -100,10 +100,6 @@ def apply_operator(values: list, op: str) -> None:
 
 def handler(request):
     query = request.get('query', '')
-    if not query:
-        url = request.get('url', '')
-        if url:
-            query = parse_qs(urlparse(url).query)
     if isinstance(query, dict):
         expression = query.get('expression', [''])[0]
     else:
@@ -124,5 +120,23 @@ def handler(request):
         }
 
 
-app = handler
-application = handler
+def application(environ, start_response):
+    query_string = environ.get('QUERY_STRING', '')
+    params = parse_qs(query_string)
+    expression = params.get('expression', [''])[0]
+
+    try:
+        result = evaluate_expression(expression)
+        status = '200 OK'
+        body = json.dumps({'result': result})
+    except ValueError as e:
+        status = '400 Bad Request'
+        body = json.dumps({'error': str(e)})
+
+    headers = [('Content-Type', 'application/json')]
+    start_response(status, headers)
+    return [body.encode('utf-8')]
+
+
+# Expose the common WSGI/ASGI entry names Vercel looks for
+app = application
